@@ -15,7 +15,7 @@ class ShortCodeGeneratorTest {
 
     @Test
     void generatesCodeOfConfiguredLength() {
-        assertThat(generator.generate()).hasSize(6);
+        assertThat(generator.generate()).hasSize(7); // DEMO: deliberately wrong, to show CI blocking the merge
         assertThat(new ShortCodeGenerator(10).generate()).hasSize(10);
     }
 
