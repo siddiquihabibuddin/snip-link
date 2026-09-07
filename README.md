@@ -3,10 +3,9 @@
 A tiny URL shortener built as a hands-on **CI/CD learning project**. The app is
 deliberately small; the interesting part is `.github/workflows/`.
 
-<!-- Badges: replace OWNER/REPO after pushing to GitHub -->
-[![CI](https://github.com/OWNER/REPO/actions/workflows/ci.yml/badge.svg)](https://github.com/OWNER/REPO/actions/workflows/ci.yml)
-[![CD](https://github.com/OWNER/REPO/actions/workflows/cd.yml/badge.svg)](https://github.com/OWNER/REPO/actions/workflows/cd.yml)
-[![CodeQL](https://github.com/OWNER/REPO/actions/workflows/codeql.yml/badge.svg)](https://github.com/OWNER/REPO/actions/workflows/codeql.yml)
+[![CI](https://github.com/siddiquihabibuddin/snip-link/actions/workflows/ci.yml/badge.svg)](https://github.com/siddiquihabibuddin/snip-link/actions/workflows/ci.yml)
+[![CD](https://github.com/siddiquihabibuddin/snip-link/actions/workflows/cd.yml/badge.svg)](https://github.com/siddiquihabibuddin/snip-link/actions/workflows/cd.yml)
+[![CodeQL](https://github.com/siddiquihabibuddin/snip-link/actions/workflows/codeql.yml/badge.svg)](https://github.com/siddiquihabibuddin/snip-link/actions/workflows/codeql.yml)
 
 ## What it does
 
@@ -63,7 +62,7 @@ Enable branch protection on `main` requiring `ci-ok` + 1 review (see setup below
 
 ### CD — `.github/workflows/cd.yml` (on push to `main`)
 
-1. `image` — build + push `ghcr.io/OWNER/REPO-backend:{sha,latest}` to GitHub Container Registry (free)
+1. `image` — build + push `ghcr.io/siddiquihabibuddin/snip-link-backend:{sha,latest}` to GitHub Container Registry (free)
 2. `deploy-backend` — behind the **`production` environment** (manual approval): fire the Render deploy hook, then poll `/actuator/health` as a smoke test
 3. `deploy-frontend` — build with the production `VITE_API_BASE`, deploy to Cloudflare Pages, curl the URL
 
@@ -74,18 +73,17 @@ Enable branch protection on `main` requiring `ci-ok` + 1 review (see setup below
 
 ## One-time setup
 
-1. **Create the repo** and push (make it **public** — free Actions minutes + CodeQL):
+1. **Push to GitHub** (repo is public — free Actions minutes + CodeQL):
    ```bash
-   gh repo create sniplink --public --source=. --push
+   git push -u origin main
    ```
-   Then replace `OWNER/REPO` in this README and `render.yaml`.
 2. **Branch protection** — Settings → Branches → add rule for `main`: require `ci-ok`, require a PR review, require linear history.
 3. **Backend host (Render)** — New → Blueprint from this repo (`render.yaml`). After it exists:
    - copy its **Deploy Hook** URL → repo secret `RENDER_DEPLOY_HOOK`
    - set repo **variable** `BACKEND_URL` to its public URL
    - set the service env vars `APP_BASE_URL` (its own URL) and `APP_CORS_ALLOWED_ORIGINS` (the Pages URL)
    - make the GHCR package public (repo → Packages → package settings)
-4. **Frontend host (Cloudflare Pages)** — create a Pages project named `sniplink` (Direct Upload). Then repo secrets `CLOUDFLARE_API_TOKEN` (scope: *Account · Cloudflare Pages · Edit*) and `CLOUDFLARE_ACCOUNT_ID`, and repo variable `FRONTEND_URL`.
+4. **Frontend host (Cloudflare Pages)** — create a Pages project named `snip-link` (Direct Upload). Then repo secrets `CLOUDFLARE_API_TOKEN` (scope: *Account · Cloudflare Pages · Edit*) and `CLOUDFLARE_ACCOUNT_ID`, and repo variable `FRONTEND_URL`.
 5. **Environment gate** — Settings → Environments → `production` → add yourself as a required reviewer.
 
 | Kind | Name | Where |

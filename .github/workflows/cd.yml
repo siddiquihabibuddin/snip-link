@@ -89,6 +89,6 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: frontend
-          command: pages deploy dist --project-name=sniplink --branch=main
+          command: pages deploy dist --project-name=snip-link --branch=main
       - name: Smoke test - frontend responds
         run: curl -fsS -o /dev/null -w "%{http_code}\n" "${{ vars.FRONTEND_URL }}"

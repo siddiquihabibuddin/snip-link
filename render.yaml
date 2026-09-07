@@ -2,10 +2,9 @@
 #
 # Setup (one time):
 #   1. Push this repo to GitHub and let CD publish the image to GHCR at least once.
-#   2. Make the GHCR package public: repo > Packages > sniplink-backend > Package settings.
+#   2. Make the GHCR package public: repo > Packages > snip-link-backend > Package settings.
 #   3. On https://render.com : New > Blueprint, point it at this repo.
-#   4. Replace OWNER/REPO below with your GitHub owner/repo (lowercase).
-#   5. After the service exists: Settings > Deploy Hook -> copy the URL into the
+#   4. After the service exists: Settings > Deploy Hook -> copy the URL into the
 #      GitHub repo secret RENDER_DEPLOY_HOOK, and set repo variable BACKEND_URL to
 #      the service's public URL (e.g. https://sniplink-backend.onrender.com).
 services:
@@ -14,7 +13,7 @@ services:
     runtime: image
     plan: free
     image:
-      url: ghcr.io/OWNER/REPO-backend:latest
+      url: ghcr.io/siddiquihabibuddin/snip-link-backend:latest
     healthCheckPath: /actuator/health
     autoDeploy: false            # deploys are triggered by the CD workflow's deploy hook
     envVars:
