@@ -1,0 +1,152 @@
+:root {
+  color-scheme: light dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  background: #f6f7f9;
+  color: #1a1a2e;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #14161a;
+    color: #e8e8ec;
+  }
+}
+
+.app {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 3rem 1.25rem;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2rem;
+  letter-spacing: -0.02em;
+}
+
+.tagline {
+  margin: 0.25rem 0 2rem;
+  opacity: 0.7;
+}
+
+form {
+  display: flex;
+  gap: 0.5rem;
+}
+
+input {
+  flex: 1;
+  padding: 0.65rem 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #c9ced6;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+}
+
+input:focus {
+  outline: 2px solid #4f7cff;
+  border-color: transparent;
+}
+
+button {
+  padding: 0.65rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  background: #4f7cff;
+  color: white;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.error {
+  margin-top: 1rem;
+  color: #c0362c;
+  font-size: 0.9rem;
+}
+
+.links {
+  list-style: none;
+  margin: 2rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.links li {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  grid-template-areas:
+    'short  age  copy'
+    'orig   orig copy';
+  gap: 0.15rem 0.75rem;
+  align-items: center;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid #e0e3e8;
+  border-radius: 10px;
+  background: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  .links li {
+    background: #1c1f24;
+    border-color: #2c313a;
+  }
+  input {
+    border-color: #3a3f48;
+  }
+}
+
+.short {
+  grid-area: short;
+  font-weight: 600;
+  color: #4f7cff;
+  text-decoration: none;
+}
+
+.original {
+  grid-area: orig;
+  font-size: 0.8rem;
+  opacity: 0.6;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.age {
+  grid-area: age;
+  font-size: 0.75rem;
+  opacity: 0.5;
+}
+
+.copy {
+  grid-area: copy;
+  background: transparent;
+  color: inherit;
+  border: 1px solid #c9ced6;
+  padding: 0.35rem 0.7rem;
+  font-size: 0.8rem;
+}
+
+.empty {
+  opacity: 0.5;
+  border-style: dashed !important;
+  justify-content: center;
+  text-align: center;
+  display: block !important;
+}

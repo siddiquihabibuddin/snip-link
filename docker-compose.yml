@@ -1,0 +1,31 @@
+# Local end-to-end stack, mirroring production shapes:
+#   backend  -> container image (as deployed to Render)
+#   frontend -> static files behind nginx (as deployed to a static host)
+#
+#   docker compose up --build
+#   open http://localhost:5173
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8080:8080"
+    environment:
+      APP_BASE_URL: http://localhost:8080
+      APP_CORS_ALLOWED_ORIGINS: http://localhost:5173
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:8080/actuator/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 30s
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_BASE: http://localhost:8080
+    ports:
+      - "5173:80"
+    depends_on:
+      backend:
+        condition: service_healthy

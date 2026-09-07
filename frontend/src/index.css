@@ -1,0 +1,4 @@
+/* Minimal reset. Component styling lives in App.css. */
+:root {
+  color-scheme: light dark;
+}

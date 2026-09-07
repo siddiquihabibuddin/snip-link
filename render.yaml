@@ -1,0 +1,24 @@
+# Render Blueprint for the sniplink backend.
+#
+# Setup (one time):
+#   1. Push this repo to GitHub and let CD publish the image to GHCR at least once.
+#   2. Make the GHCR package public: repo > Packages > sniplink-backend > Package settings.
+#   3. On https://render.com : New > Blueprint, point it at this repo.
+#   4. Replace OWNER/REPO below with your GitHub owner/repo (lowercase).
+#   5. After the service exists: Settings > Deploy Hook -> copy the URL into the
+#      GitHub repo secret RENDER_DEPLOY_HOOK, and set repo variable BACKEND_URL to
+#      the service's public URL (e.g. https://sniplink-backend.onrender.com).
+services:
+  - type: web
+    name: sniplink-backend
+    runtime: image
+    plan: free
+    image:
+      url: ghcr.io/OWNER/REPO-backend:latest
+    healthCheckPath: /actuator/health
+    autoDeploy: false            # deploys are triggered by the CD workflow's deploy hook
+    envVars:
+      - key: APP_BASE_URL
+        sync: false              # set to the service's own public URL
+      - key: APP_CORS_ALLOWED_ORIGINS
+        sync: false              # set to the Cloudflare Pages URL
