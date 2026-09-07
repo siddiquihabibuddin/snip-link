@@ -54,7 +54,7 @@ jobs:
         working-directory: backend
         run: ./mvnw -B verify
       - name: Publish test report
-        uses: dorny/test-reporter@v1
+        uses: dorny/test-reporter@v3
         if: ${{ !cancelled() && matrix.java == '21' }}
         with:
           name: backend tests
